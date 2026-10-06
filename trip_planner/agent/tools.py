@@ -23,7 +23,6 @@ EVENTS_URL = "https://app.ticketmaster.com/discovery/v2/events.json"
 FORECAST_DAYS = 16          # all Open-Meteo will forecast: today + 15
 MAX_RESULTS = 3
 
-TOOLS = [get_weather, find_attractions, find_restaurants, find_events, get_transit_info]
 
 # Open-Meteo returns a WMO code, not words. Only the common ones are listed;
 # anything else falls through to "code N", which will keep the agent honest.
@@ -334,3 +333,4 @@ def get_transit_info(city: str) -> str:
    
 
 
+TOOLS = [get_weather, find_attractions, find_restaurants, find_events, get_transit_info]
