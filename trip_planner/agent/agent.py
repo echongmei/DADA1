@@ -28,7 +28,8 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langgraph.checkpoint.memory import InMemorySaver
 
 # TODO: Import your tools and system prompt
-
+from .tools import TOOLS
+from .prompts import SYSTEM_PROMPT
 # You must use an API model for online deployment. Otherwise, we cannot test it properly.
 # Options: Gemini, OpenRouter, NVIDIA as posted on Piazza
 model = ChatGoogleGenerativeAI(model="gemini-3.5-flash-lite")
@@ -38,11 +39,19 @@ model = ChatGoogleGenerativeAI(model="gemini-3.5-flash-lite")
 # model = ChatOllama(model="qwen3.5:4b", reasoning=False)
 
 # TODO: create the trip_agent instance
-
+trip_agent = create_agent(
+    model=model,
+    tools=TOOLS,
+    system_prompt=SYSTEM_PROMPT,
+    memory=InMemorySaver()
+)
 
 def ask(text: str, thread: str) -> dict:
     """One turn of the conversation. The same thread keeps the memory."""
     # TODO: implement the ask function to interact with the trip_agent
+    config = {"configurable": {"thread_id": thread}}
+    return trip_agent.invoke({"messages": [HumanMessage(content=text)]}, config)
+
 
 if __name__ == "__main__":
     from .itinerary import build_itinerary

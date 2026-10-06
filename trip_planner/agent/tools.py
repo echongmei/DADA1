@@ -23,6 +23,8 @@ EVENTS_URL = "https://app.ticketmaster.com/discovery/v2/events.json"
 FORECAST_DAYS = 16          # all Open-Meteo will forecast: today + 15
 MAX_RESULTS = 3
 
+TOOLS = [get_weather, find_attractions, find_restaurants, find_events, get_transit_info]
+
 # Open-Meteo returns a WMO code, not words. Only the common ones are listed;
 # anything else falls through to "code N", which will keep the agent honest.
 WEATHER_CODES = {
@@ -252,7 +254,7 @@ def find_events(city: str, date: str = "", category: str = "") -> str:
         params["localEndDateTime"] = (end.strftime("%Y-%m-%dT%H:%M:%S"))
         
     params["classificationName"] = category.strip()
-    request = requests.get(TICKETMASTER_API_URL, params=params, timeout=15)
+    request = requests.get(EVENTS_URL, params=params, timeout=15)
     data = request.json()
     events = data.get("_embedded", {}).get("events", [])
     if not events:
@@ -305,7 +307,7 @@ def find_events(city: str, date: str = "", category: str = "") -> str:
             f"{event_name}\n"
             f"  Starts: {start_text}\n"
             f"  Price: {price_text}\n"
-            f"  Link: {link}\n"
+            f"  Source: {link}\n"
         )
 
     return (
