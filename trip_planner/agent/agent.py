@@ -43,7 +43,7 @@ trip_agent = create_agent(
     model=model,
     tools=TOOLS,
     system_prompt=SYSTEM_PROMPT,
-    memory=InMemorySaver()
+    checkpointer=InMemorySaver()
 )
 
 def ask(text: str, thread: str) -> dict:
