@@ -105,8 +105,8 @@ def get_weather(city: str, date: str = "") -> str:
     what the user meant before you plan anything.
     """
     # TODO: implement. Return a readable string
-    today = datetime.date.today()
-    last = today + timedelta(days=FORECAST_DAYS - 1)
+    today = datetime.now().date()
+    last = today + timedelta(days=FORECAST_DAYS)
 
     if date.strip():
         try:
@@ -228,7 +228,7 @@ def find_events(city: str, date: str = "", category: str = "") -> str:
 
     params = {
             "latlong": f"{lat},{lon}",
-            "size": MAX_EVENTS,
+            "size": MAX_RESULTS,
             "sort": "date,asc",
         }
     
@@ -247,7 +247,7 @@ def find_events(city: str, date: str = "", category: str = "") -> str:
         )
     else:
         #7 days
-        start = datetime.date.today()
+        start = datetime.now().date()
         end = start + timedelta(days=7)
         params["localStartDateTime"] = (start.strftime("%Y-%m-%dT%H:%M:%S"))
         params["localEndDateTime"] = (end.strftime("%Y-%m-%dT%H:%M:%S"))
