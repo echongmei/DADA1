@@ -4,7 +4,7 @@
 how your deployed app gets found and graded.
 
 ```
-Deployed app: <your Render URL>
+Deployed app: https://dada1-x3ox.onrender.com
 ```
 
 Read `DADA1_SPEC.md` first.
@@ -25,4 +25,3 @@ pip install -r requirements.txt
 python -m agent.agent        # chat in the terminal
 python app.py                # web UI
 ```
-
